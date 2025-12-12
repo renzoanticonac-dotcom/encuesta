@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>WARNING</title>
+<style>
+    body {
+        background-color: black;
+        font-family: Segoe UI, sans-serif;
+    }
+
+    .msgbox {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ececec;
+        border: 2px solid #c0c0c0;
+        width: 400px;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        display: none;
+        z-index: 9999;
+    }
+
+    .msgbox-content {
+        display: flex;
+        gap: 15px;
+        color: black;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .msgbox-buttons {
+        text-align: right;
+    }
+
+    button {
+        padding: 5px 18px;
+        margin-left: 5px;
+        background: #e6e6e6;
+        border: 1px solid #a0a0a0;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<!-- MENSAJES TIPO WINDOWS -->
+<div class="msgbox" id="msg1">
+    <div class="msgbox-content">
+        <img src="https://i.imgur.com/E7w1K95.png" width="48" height="48">
+        <span>Se ha detectado una actividad anómala en el sistema. Reiniciar el equipo podría no resolver el problema.</span>
+    </div>
+    <div class="msgbox-buttons">
+        <button onclick="next('msg1','msg2')">Aceptar</button>
+    </div>
+</div>
+
+<div class="msgbox" id="msg2">
+    <div class="msgbox-content">
+        <img src="https://i.imgur.com/E7w1K95.png" width="48" height="48">
+        <span>El sistema ha intentado detener el proceso, pero la amenaza continúa activa.</span>
+    </div>
+    <div class="msgbox-buttons">
+        <button onclick="next('msg2','msg3')">Aceptar</button>
+    </div>
+</div>
+
+<div class="msgbox" id="msg3">
+    <div class="msgbox-content">
+        <img src="https://i.imgur.com/E7w1K95.png" width="48" height="48">
+        <span>Advertencia: algunos módulos de seguridad no responden. Integridad del sistema comprometida.</span>
+    </div>
+    <div class="msgbox-buttons">
+        <button onclick="next('msg3','msg4')">Aceptar</button>
+    </div>
+</div>
+
+<div class="msgbox" id="msg4">
+    <div class="msgbox-content">
+        <img src="https://i.imgur.com/E7w1K95.png" width="48" height="48">
+        <span>Iniciando análisis de la amenaza... El comportamiento puede ser inestable.</span>
+    </div>
+    <div class="msgbox-buttons">
+        <button onclick="next('msg4','confirm')">Aceptar</button>
+    </div>
+</div>
+
+<div class="msgbox" id="confirm">
+    <div class="msgbox-content">
+        <img src="https://i.imgur.com/E7w1K95.png" width="48" height="48">
+        <span>Se requiere confirmar una acción del sistema. ¿Deseas ejecutar el proceso de contención?</span>
+    </div>
+    <div class="msgbox-buttons">
+        <button onclick="executeProcess()">Sí</button>
+        <button onclick="closeAll()">No</button>
+    </div>
+</div>
+
+<script>
+    // Mostrar primer mensaje
+    setTimeout(() => {
+        document.getElementById('msg1').style.display = 'block';
+    }, 1000);
+
+    function next(actual, siguiente) {
+        document.getElementById(actual).style.display = 'none';
+        document.getElementById(siguiente).style.display = 'block';
+    }
+
+    function executeProcess() {
+        document.getElementById('confirm').style.display = 'none';
+
+        alert("Intentando reparar el sistema... (simulado)");
+
+        // Abrir 3 pestañas con retraso para evitar el bloqueo del navegador
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                window.open("https://www.google.com", "_blank");
+            }, i * 600);
+        }
+
+        document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:120px;'>Proceso de contención finalizado.<br>Estado del sistema: INESTABLE</h1>";
+    }
+
+    function closeAll() {
+        document.getElementById('confirm').style.display = 'none';
+        alert("Operación cancelada por el usuario.");
+    }
+</script>
+
+</body>
+</html>
